@@ -3,7 +3,6 @@
 using Microsoft.Extensions.Logging;
 
 using Starter.Data.Entities;
-using Starter.Data.Services;
 using Starter.Framework.Clients;
 using Starter.Framework.Extensions;
 
@@ -14,61 +13,43 @@ namespace Starter.Data.Consumers
     /// </summary>
     public class MessageBrokerConsumer : IMessageBrokerConsumer
     {
-        private readonly IMessageBroker<Cat> _messageBroker;
-        
         private readonly IApiClient _apiClient;
         
         private readonly ILogger _logger;
 
-        public MessageBrokerConsumer(IMessageBroker<Cat> messageBroker, IApiClient apiClient, ILogger logger)
+        public MessageBrokerConsumer(IApiClient apiClient, ILogger logger)
         {
-            _messageBroker = messageBroker;
             _apiClient = apiClient;
             _logger = logger;
-
-            _messageBroker.DataReceived += OnDataReceived;
         }
 
         /// <summary>
         /// Handles the data received from the message broker
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="message"></param>
-        public void OnDataReceived(object sender, Message<Cat> message)
+        public void Consume(string message)
         {
-            _logger.Log(LogLevel.Information, $"{message.Command}, {message.Type}, {message.Entity.ToJson()}");
+            var m = message.FromJson<Message<Cat>>();
 
-            switch (message.Command)
+            _logger.Log(LogLevel.Information, $"{m.Command}, {m.Type}, {message}");
+
+            switch (m.Command)
             {
                 case MessageCommand.Create:
-                    _apiClient.Create(message.Entity);
+                    _apiClient.Create(m.Entity);
 
                     break;
                 case MessageCommand.Update:
-                    _apiClient.Update(message.Entity);
+                    _apiClient.Update(m.Entity);
 
                     break;
                 case MessageCommand.Delete:
-                    _apiClient.Delete(message.Entity.Id);
+                    _apiClient.Delete(m.Entity.Id);
 
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }   
-
-        public bool Start()
-        {
-            _messageBroker.Receive();
-
-            return true;
-        }
-
-        public bool Stop()
-        {
-            _messageBroker.Stop();
-            
-            return true;
         }
     }
 }

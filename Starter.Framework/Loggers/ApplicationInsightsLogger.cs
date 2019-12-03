@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights.Extensibility;
 
 using Starter.Framework.Entities;
 
@@ -24,7 +25,10 @@ namespace Starter.Framework.Loggers
                 return;
             }
 
-            _telemetryClient = new TelemetryClient() { InstrumentationKey = settings.ApplicationInsightsInstrumentationKey };
+            var config = TelemetryConfiguration.CreateDefault();
+            config.InstrumentationKey = settings.ApplicationInsightsInstrumentationKey;
+            
+            _telemetryClient = new TelemetryClient(config);
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)

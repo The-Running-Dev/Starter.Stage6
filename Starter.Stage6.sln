@@ -26,11 +26,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.Framework.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.Repository.Tests", "Starter.Repository.Tests\Starter.Repository.Tests.csproj", "{91B9A84B-385A-4714-AC39-F297B1D0A361}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.MessageBroker.Consumer", "Starter.MessageBroker.Consumer\Starter.MessageBroker.Consumer.csproj", "{71291756-5A50-44E4-B6DF-9E355C727C58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.MessageBroker.Consumer.Azure", "Starter.MessageBroker.Consumer\Starter.MessageBroker.Consumer.Azure.csproj", "{71291756-5A50-44E4-B6DF-9E355C727C58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.Azure.Populate", "Starter.Azure.Populate\Starter.Azure.Populate.csproj", "{C1BB37E5-0BD9-4A84-BFA5-8167B69C04F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starter.MessageBroker.Azure", "Starter.MessageBroker.Azure\Starter.MessageBroker.Azure.csproj", "{B59E2083-04A7-4109-805F-ED5CB4179F90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.MessageBroker.Azure", "Starter.MessageBroker.Azure\Starter.MessageBroker.Azure.csproj", "{B59E2083-04A7-4109-805F-ED5CB4179F90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

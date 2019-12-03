@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 using Microsoft.SqlServer.Server;
-using Microsoft.Extensions.DependencyInjection;
 
 using Starter.Bootstrapper;
 
@@ -18,8 +17,7 @@ namespace Starter.Framework.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var serviceCollation = new ServiceCollection();
-            Setup.Bootstrap(serviceCollation, SetupType.Test);
+            Setup.Bootstrap(SetupType.Test);
 
             SqlDataRecord = new SqlDataRecord(
                 new SqlMetaData("Id", SqlDbType.UniqueIdentifier),

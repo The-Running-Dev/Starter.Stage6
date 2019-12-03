@@ -21,11 +21,7 @@ namespace Starter.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-#if DEBUG
             Setup.Bootstrap(services);
-#else
-            Setup.Bootstrap(services, SetupType.Release);
-#endif
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

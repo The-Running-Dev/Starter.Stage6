@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 using Moq;
 using NUnit.Framework;
-using Microsoft.Extensions.DependencyInjection;
 
 using Starter.Bootstrapper;
 using Starter.Data.Entities;
@@ -33,8 +32,7 @@ namespace Starter.Data.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var serviceCollation = new ServiceCollection();
-            Setup.Bootstrap(serviceCollation, SetupType.Test);
+            Setup.Bootstrap(SetupType.Test);
 
             CreateCatTestData();
 

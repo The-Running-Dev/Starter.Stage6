@@ -22,16 +22,31 @@ namespace Starter.Bootstrapper
     public static class Setup
     {
         /// <summary>
-        /// Provides means to registry different service implementations
+        /// 
+        /// </summary>
+        /// <param name="setupType"></param>
+        public static void Bootstrap(SetupType setupType = SetupType.Debug)
+        {
+            Bootstrap(new ServiceCollection(), setupType);
+        }
+
+        /// <summary>
+        /// Registers service implementations with the DI container,
         /// based on the setup type
         /// </summary>
-        public static IServiceCollection Bootstrap(IServiceCollection services, SetupType setupType = SetupType.Debug)
+        public static void Bootstrap(IServiceCollection services, SetupType setupType = SetupType.Debug)
         {
-#if DEBUG
-            Setup.Bootstrap(services);
-#else
-            Setup.Bootstrap(services, SetupType.Release);
+#if RELEASE
+            if (setupType != SetupType.Test)
+            {
+                setupType = SetupType.Release;
+            }
 #endif
+
+            if (services == null)
+            {
+                services = new ServiceCollection();
+            }
 
             switch (setupType)
             {
@@ -63,8 +78,6 @@ namespace Starter.Bootstrapper
             var serviceProvider = services.BuildServiceProvider();
 
             IocWrapper.Instance = new IocWrapper(serviceProvider);
-
-            return services;
         }
     }
 }

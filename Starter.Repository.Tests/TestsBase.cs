@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 using Microsoft.Azure.Cosmos.Table;
-using Microsoft.Extensions.DependencyInjection;
 
 using Starter.Bootstrapper;
 using Starter.Data.Entities;
@@ -27,8 +26,7 @@ namespace Starter.Repository.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var serviceCollation = new ServiceCollection();
-            Setup.Bootstrap(serviceCollation, SetupType.Test);
+            Setup.Bootstrap(SetupType.Test);
 
             CatRepository = IocWrapper.Instance.GetService<ICatRepository>();
             
